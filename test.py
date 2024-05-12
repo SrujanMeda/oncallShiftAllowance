@@ -1,5 +1,10 @@
 import pandas as pd
 
+# Read Excel file into DataFrame
+df = pd.read_excel('MayShiftRoster.xlsx')
+unique_names = df['Name'].unique().tolist()
+
+print(unique_names)
 def get_date_values_pairs(df, specific_name):
     """
     Function to get the {date: values} pairs for a specific name.
@@ -28,17 +33,6 @@ def get_date_values_pairs(df, specific_name):
     
     return date_values_pairs
 
-# Read Excel file into DataFrame
-df = pd.read_excel('MayShiftRoster.xlsx')
-
-# Specify the specific name
-specific_name = 'surendhirakumar.ravichandran'
-
-# Call the function and print the result
-result = get_date_values_pairs(df, specific_name)
-print(result)
-
-
 def get_keys_by_values(dictionary, desired_values):
     keys_by_values = {value: [] for value in desired_values}
     for key, val in dictionary.items():
@@ -46,6 +40,13 @@ def get_keys_by_values(dictionary, desired_values):
             keys_by_values[val].append(key)
     return keys_by_values
 
-desired_values = ['S1','S2','S3']
-keys_by_values = get_keys_by_values(result, desired_values)
-print(keys_by_values)
+
+# Specify the specific name
+for name in unique_names:
+    specific_name = name
+    # Call the function and print the result
+    result = get_date_values_pairs(df, specific_name)
+    #print(result)
+    desired_values = ['S1','S2','S3']
+    keys_by_values = get_keys_by_values(result, desired_values)
+    print(specific_name , keys_by_values)
