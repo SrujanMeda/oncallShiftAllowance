@@ -1,10 +1,11 @@
 import pandas as pd
+import datetime
 
 # Read Excel file into DataFrame
 df = pd.read_excel('MayShiftRoster.xlsx')
 unique_names = df['Name'].unique().tolist()
 
-print(len(unique_names))
+#print(len(unique_names))
 def get_date_values_pairs(df, specific_name):
     """
     Function to get the {date: values} pairs for a specific name.
@@ -40,6 +41,8 @@ def get_keys_by_values(dictionary, desired_values):
             keys_by_values[val].append(key)
     return keys_by_values
 
+def is_weekend(date):
+    return date.weekday() >= 5  # Saturday (5) or Sunday (6)
 
 # Specify the specific name
 for name in unique_names:
@@ -47,6 +50,27 @@ for name in unique_names:
     # Call the function and print the result
     result = get_date_values_pairs(df, specific_name)
     #print(result)
+    shift_b = []
+    shift_c = []
+    weekend = []
     desired_values = ['S1','S2','S3']
     keys_by_values = get_keys_by_values(result, desired_values)
-    print(specific_name , keys_by_values)
+    for key, dates in keys_by_values.items():
+        for date in dates:
+            date_obj = datetime.datetime(2024, 5, date)  # Creating a datetime object may 2024
+            if key in ['S1', 'S2', 'S3']:  # Check for all keys
+                if is_weekend(date_obj):  # If date is a weekend
+                    weekend.append(date)
+            if key in ['S1', 'S2']:  # Check for Shift B
+                if not is_weekend(date_obj):  # If date is a weekday
+                    shift_b.append(date)
+            elif key == 'S3':  # Check for Shift C
+                if not is_weekend(date_obj):  # If date is a weekday
+                    shift_c.append(date)
+    shift_b.sort()
+    shift_c.sort()
+    weekend.sort()
+    print(name)                
+    print("Shift B:", shift_b)
+    print("Shift C:", shift_c)
+    print("Weekend:", weekend)
