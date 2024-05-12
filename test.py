@@ -4,7 +4,7 @@ import pandas as pd
 df = pd.read_excel('MayShiftRoster.xlsx')
 unique_names = df['Name'].unique().tolist()
 
-print(unique_names)
+print(len(unique_names))
 def get_date_values_pairs(df, specific_name):
     """
     Function to get the {date: values} pairs for a specific name.
