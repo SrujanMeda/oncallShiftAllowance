@@ -8,15 +8,5 @@ Weekends: saturday and sunday
 Holidays: Public Holiday
 Flow:
 1. Importing the roster excel file and read via code.
-2. Get the dates worked by resourse based on catregory and update the workingDays.json
-3. Export a excel sheet with headers (resource name , No of Shift B dates worked, shift B dates,No of Shift C dates worked, shift C dates,No of Weekends worked, shift Weekend dates,No of holidays worked, shift holiday dates) based on workingDays.json
-
-workingDays.json structure
-resource:{
-    resourceName:{
-        shiftB:
-        shiftC:
-        weekends:
-        holidays:
-    }
-}
+2. Get the dates worked by resourse based on catregory
+3. Export a excel sheet with headers (resource name , No of Shift B dates worked, shift B dates,No of Shift C dates worked, shift C dates,No of Weekends worked, shift Weekend dates,No of holidays worked, shift holiday dates)
